@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Living Serenity — The Living Interface</title>
+  <meta name="description" content="Living Page of Nature: Engineered living materials, biointerfaces, synthetic biology, and BMIs — presented with calm animations and interactive 3D." />
+  <style>
+    *,*::before,*::after{box-sizing:border-box}html,body{height:100%}body{margin:0;font-family:Inter,system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;line-height:1.45;color:#08321f;background:linear-gradient(180deg,#eef9f2 0%, #f8fffb 100%)}
+    :root{--accent:#116b3e;--muted:#64786a;--card:#ffffff;--glass:rgba(255,255,255,0.6);--shadow:0 12px 30px rgba(6,40,20,0.06)}
+    .container{max-width:1200px;margin:0 auto;padding:30px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:14px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:56px;height:56px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),#2ea66b);color:white;font-weight:800;box-shadow:var(--shadow)}
+    nav{display:flex;gap:16px}
+    nav a{color:var(--accent);text-decoration:none;font-weight:600}
+
+    /* HERO with living background */
+    .hero{position:relative;overflow:hidden;border-radius:18px;margin-top:18px;padding:28px;background:linear-gradient(180deg,rgba(255,255,255,0.9),rgba(255,255,255,0.7));box-shadow:var(--shadow);display:grid;grid-template-columns:1fr 420px;gap:24px}
+    #bgCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+    .hero .content{position:relative;z-index:1}
+    h1{font-size:34px;margin:0 0 8px;color:#04321c}
+    p.lead{color:var(--muted);margin:0 0 14px}
+    .cta{display:inline-block;background:var(--accent);color:white;padding:10px 14px;border-radius:12px;text-decoration:none}
+
+    /* floating 3D panel */
+    .panel-3d{position:relative;z-index:1;border-radius:12px;overflow:hidden}
+    .panel-3d img{width:100%;height:260px;object-fit:cover;display:block}
+
+    /* Sections */
+    section{margin-top:28px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:var(--shadow);transition:transform .28s cubic-bezier(.2,.9,.3,1),box-shadow .28s;cursor:pointer}
+    .card:hover{transform:translateY(-8px);box-shadow:0 26px 60px rgba(6,40,20,0.12)}
+    .card img{width:100%;height:140px;object-fit:cover;border-radius:8px}
+    .card h3{margin:10px 0 6px}
+    .card p{margin:0;color:var(--muted);font-size:14px}
+    .link{display:inline-block;margin-top:10px;color:var(--accent);font-weight:600;text-decoration:none}
+
+    /* responsive */
+    @media (max-width:980px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:repeat(1,1fr)}}
+
+    /* subtle hover glow */
+    .glow:hover{box-shadow:0 10px 40px rgba(18,115,60,0.14)}
+
+    /* small gallery */
+    .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+    .gallery img{width:100%;height:120px;object-fit:cover;border-radius:10px;transition:transform .25s ease}
+    .gallery img:hover{transform:scale(1.06) rotate(-0.6deg)}
+
+    /* music toggle */
+    .mute{background:transparent;border:1px solid rgba(6,40,20,0.06);padding:8px 10px;border-radius:999px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">LI</div>
+        <div>
+          <div style="font-weight:800">Living Serenity</div>
+          <div style="font-size:12px;color:var(--muted)">a living interface for nature-inspired ideas</div>
+        </div>
+      </div>
+      <nav>
+        <a href="bio.html">About</a>
+        <a href="index.html">Topics</a>
+        <a href="livingint.html">Gallery</a>
+        <a href="bio.html" class="cta">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <canvas id="bgCanvas" aria-hidden="true"></canvas>
+        <div class="content">
+          <h1>The Living Interface — Nature & Technology</h1>
+          <p class="lead">Explore research-led ideas where materials, biology and interfaces meet. This page curates concepts like engineered living materials, biointerfaces, synthetic biology and brain–machine systems — with a calm, living UI to match.</p>
+          <div style="display:flex;gap:12px;align-items:center;margin-top:12px">
+            <a class="cta" href="#topics">Explore Topics</a>
+            <button id="soundToggle" class="mute">🔈 Ambient off</button>
+          </div>
+        </div>
+
+        <aside class="panel-3d">
+          <div id="threeRoot" style="width:100%;height:100%;min-height:280px;border-radius:12px;overflow:hidden"></div>
+          <div style="padding:12px;font-size:13px;color:var(--muted)">Hover over the 3D object to make it breathe; drag to orbit.</div>
+        </aside>
+      </section>
+
+      <section id="topics">
+        <h2>Living Interface Topics</h2>
+        <div class="grid">
+          <article class="card glow">
+            <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=800&q=60" alt="biofilm"/>
+            <h3>Engineered living materials</h3>
+            <p>A collection of articles and research on creating materials with tailored functions by merging synthetic biology and biomaterials.</p>
+            <a class="link" href="https://www.nature.com/collections/fhcabedjaa" target="_blank" rel="noopener">Read collection</a>
+          </article>
+
+          <article class="card glow">
+            <img src="https://media.istockphoto.com/id/2138731057/photo/artificial-intelligence-sustainable-responsible-technology.webp?a=1&b=1&s=612x612&w=0&k=20&c=QyISMbYVediRySNuUkZn4Tuc7Q574NNOMt5KFUVN9ZA=" alt="neural interface"/>
+            <h3>Brain–machine interfaces</h3>
+            <p>A subject page featuring the latest research on devices that translate brain signals into commands for external hardware.</p>
+            <a class="link" href="https://www.nature.com/subjects/brain-machine-interface" target="_blank" rel="noopener">Explore BMIs</a>
+          </article>
+
+          <article class="card glow">
+            <img src="https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?auto=format&fit=crop&w=800&q=60" alt="synthetic biology"/>
+            <h3>Synthetic biology & biointerfaces</h3>
+            <p>Articles exploring how synthetic biology is being used to program cells and create new materials. </p>
+            <a class="link" href="https://www.nature.com/articles/s41563-022-01231-3" target="_blank" rel="noopener">Perspective</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="gallery">
+        <h2>Serenity Gallery</h2>
+        <div class="gallery">
+          <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=60" alt="forest canopy"/>
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=60" alt="river moss"/>
+          <img src="https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&w=800&q=60" alt="sunlight trees"/>
+          <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=60" alt="stone path"/>
+        </div>
+        <section id="carouselContainer"></section>
+      </section>
+
+      <section id="contact">
+        <h2>Contact / Learn More</h2>
+        <p style="color:var(--muted)">This page references Nature content for further reading — use the links to visit original articles and collections.</p>
+        <div style="display:flex;gap:12px;margin-top:12px">
+          <a class="cta" href="#">Request a talk</a>
+          <a class="link" href="#">Download summary (PDF)</a>
+        </div>
+      </section>
+
+      <footer style="margin-top:28px;color:var(--muted)">© <span id="year"></span> Living Serenity — curated</footer>
+    </main>
+  </div>
+
+  <!-- Three.js + simple particles & 3D leaf / blob -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/controls/OrbitControls.js"></script>
+  <script>
+    document.getElementById('year').textContent=new Date().getFullYear();
+
+    // Adaptive canvas background (particles + gentle gradient) ----------------------------------------------------------------
+    const bgCanvas = document.getElementById('bgCanvas');
+    const bgCtx = bgCanvas.getContext('2d');
+    function resizeBG(){ bgCanvas.width = bgCanvas.clientWidth || bgCanvas.offsetWidth; bgCanvas.height = bgCanvas.clientHeight || bgCanvas.offsetHeight; }
+    window.addEventListener('resize', resizeBG); resizeBG();
+
+    const particles=[]; const PCOUNT = 60;
+    for(let i=0;i<PCOUNT;i++){ particles.push({x:Math.random()*bgCanvas.width, y:Math.random()*bgCanvas.height, r: 8+Math.random()*18, vx:(Math.random()-0.5)*0.15, vy:(Math.random()-0.5)*0.15, alpha:0.06+Math.random()*0.12}); }
+
+    function drawBG(){
+      if(!bgCtx) return;
+      bgCtx.clearRect(0,0,bgCanvas.width,bgCanvas.height);
+      // soft radial ambient
+      const g = bgCtx.createLinearGradient(0,0,bgCanvas.width,bgCanvas.height);
+      g.addColorStop(0,'rgba(220,255,238,0.32)'); g.addColorStop(1,'rgba(230,255,240,0.18)');
+      bgCtx.fillStyle = g; bgCtx.fillRect(0,0,bgCanvas.width,bgCanvas.height);
+
+      // particles
+      particles.forEach(p=>{
+        p.x += p.vx; p.y += p.vy;
+        if(p.x < -50) p.x = bgCanvas.width+50; if(p.x > bgCanvas.width+50) p.x = -50;
+        if(p.y < -50) p.y = bgCanvas.height+50; if(p.y > bgCanvas.height+50) p.y = -50;
+        bgCtx.beginPath();
+        bgCtx.fillStyle = `rgba(18,95,52,${p.alpha})`;
+        bgCtx.ellipse(p.x,p.y,p.r,p.r*0.6,0,0,Math.PI*2);
+        bgCtx.fill();
+      });
+    }
+    let lastBG = 0; function animateBG(t){ if(t-lastBG>16){ drawBG(); lastBG=t; } requestAnimationFrame(animateBG); } requestAnimationFrame(animateBG);
+
+    // THREE.JS scene: floating 'leaf-like' blob -----------------------------------------------------------------------------
+    const root = document.getElementById('threeRoot');
+    const scene = new THREE.Scene();
+    const renderer = new THREE.WebGLRenderer({antialias:true,alpha:true});
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(root.clientWidth, root.clientHeight);
+    root.appendChild(renderer.domElement);
+
+    const camera = new THREE.PerspectiveCamera(45, root.clientWidth/root.clientHeight, 0.1, 100);
+    camera.position.set(0,0.8,2.6);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true; controls.dampingFactor = 0.06; controls.enablePan=false; controls.minDistance=1.2; controls.maxDistance=6; controls.autoRotate=false;
+
+    // lights
+    const ambient = new THREE.HemisphereLight(0xddeee6,0x223322,0.7); scene.add(ambient);
+    const dir = new THREE.DirectionalLight(0xffffff,0.8); dir.position.set(5,10,7); scene.add(dir);
+
+    // leaf-like geometry: lathe from curve for simplicity
+    const curve = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(0, -0.8, 0), new THREE.Vector3(0.25,-0.3,0.02), new THREE.Vector3(0.2,0.2,0.05), new THREE.Vector3(0,0.9,0)
+    ]);
+    const points = curve.getPoints(30);
+    const shape = new THREE.Shape(); shape.moveTo(0,0);
+    // create a simple leaf shape by sweeping
+    for(let i=0;i<points.length;i++){ shape.lineTo(points[i].x*1.2, points[i].y); }
+    for(let i=points.length-1;i>=0;i--){ shape.lineTo(points[i].x*-0.7, points[i].y); }
+
+    const geom = new THREE.ExtrudeGeometry(shape,{depth:0.06, bevelEnabled:true, bevelThickness:0.02, bevelSize:0.01, steps:2});
+    geom.computeVertexNormals();
+    const mat = new THREE.MeshStandardMaterial({color:0x2aa76b, roughness:0.45, metalness:0.05});
+    const leaf = new THREE.Mesh(geom, mat); leaf.rotation.x = -0.4; leaf.scale.set(0.9,0.9,0.9); scene.add(leaf);
+
+    // gentle vertex wobble via simple sin offsets
+    const basePositions = geom.attributes.position.array.slice();
+    const pos = geom.attributes.position;
+
+    function onResizeThree(){ renderer.setSize(root.clientWidth, root.clientHeight); camera.aspect = root.clientWidth/root.clientHeight; camera.updateProjectionMatrix(); }
+    window.addEventListener('resize', onResizeThree);
+
+    let hover=false, mouseX=0, mouseY=0;
+    renderer.domElement.addEventListener('pointermove', (e)=>{ const rect = renderer.domElement.getBoundingClientRect(); mouseX = ((e.clientX - rect.left)/rect.width - 0.5); mouseY = ((e.clientY - rect.top)/rect.height - 0.5); });
+    renderer.domElement.addEventListener('pointerenter', ()=>hover=true); renderer.domElement.addEventListener('pointerleave', ()=>hover=false);
+
+    const clock = new THREE.Clock();
+    function tick(){
+      const t = clock.getElapsedTime();
+      // wobble
+      for(let i=0;i<pos.count;i++){
+        const ix = i*3; const oy = basePositions[ix+1];
+        pos.array[ix+1] = oy + Math.sin(t*1.2 + i*0.12)*0.004;
+      }
+      pos.needsUpdate = true;
+
+      // subtle float & rotate responding to mouse
+      leaf.rotation.z = Math.sin(t*0.6)*0.06 + mouseX*0.2;
+      leaf.rotation.x = -0.4 + Math.cos(t*0.5)*0.02 - mouseY*0.1;
+      leaf.position.y = Math.sin(t*0.7)*0.03;
+
+      controls.update(); renderer.render(scene, camera);
+      requestAnimationFrame(tick);
+    }
+    tick();
+
+    // simple accessibility: pause animation when not visible
+    document.addEventListener('visibilitychange', ()=>{ if(document.hidden) renderer.setAnimationLoop(null); else tick(); });
+
+    // sound toggle (optional ambient) --------------------------------------------------------------------------------------
+    const soundToggle = document.getElementById('soundToggle');
+    let audio=null; let playing=false;
+    soundToggle.addEventListener('click', ()=>{
+      if(!audio){ audio = new Audio('https://cdn.pixabay.com/download/audio/2021/10/22/audio_b2e5a1b3f6.mp3?filename=river-ambient-100093.mp3'); audio.loop=true; audio.volume=0.12; }
+      if(playing){ audio.pause(); playing=false; soundToggle.textContent='🔈 Ambient off'; }
+      else{ audio.play().catch(()=>{}); playing=true; soundToggle.textContent='🔊 Ambient on'; }
+    });
+
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nature & Serenity – The Living Interface</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+</head>
+<body>
+  <!-- 🍃 Falling leaves -->
+  <div class="leaves"></div>
+
+  <!-- 🌄 Background scenery -->
+  <!-- 🌄 Background scenery -->
+    <div class="scenery">
+  <div class="river"></div> <!-- 🏞️ New animated river -->
+    <div class="sun"></div>
+    <div class="trees"></div>
+    </div>
+
+
+  <!-- 🌿 Navbar -->
+  <nav class="navbar" id="navbar">
+
+    <div class="logo">🌱 Nature & Serenity</div>
+    <ul class="nav-links">
+      <li><a href="login.html">Login</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="livingint.html">Features</a></li>
+      <li><a href="carosil.html">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- 🌄 Header Section -->
+  <header id="home" data-aos="fade-down">
+    <h1>🌿 All About Nature 🌿</h1>
+    <p>OLY ORGANIC AND CALM THAT CALM ANOTHER  </p>
+  </header>
+
+  <!-- 🌸 Features Section -->
+  <section id="features" class="features">
+    <div class="card" data-aos="fade-up">
+      <img class="nat" src="https://images.unsplash.com/photo-1610147323479-a7fb11ffd5dd?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1074" alt="Leaf">
+      <h3>Main Page</h3>
+      <p>Experience organic interaction with smooth transitions.</p>
+      <button onclick="openInNewTab('livingint.html')">Explore</button>
+
+    </div>
+    <div class="card" data-aos="fade-up" data-aos-delay="200">
+      <img class="nat" src="https://plus.unsplash.com/premium_photo-1675198764473-30434364c8b6?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Water">
+      <h3>Explore Nature</h3>
+      <p>Reflective calm interface that flows with your input.</p>
+      <button onclick="openInNewTab('carosil.html')">Explore</button>
+
+    </div>
+    <div class="card" data-aos="fade-up" data-aos-delay="400">
+      <img class="nat" src="https://plus.unsplash.com/premium_photo-1742910864304-dcfda6b38247?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Sun">
+      <h3>Living Interface</h3>
+      <p>Modern Scientific problems and research related to nature</p>
+      <button onclick="openInNewTab('bio.html')">Explore</button>
+
+    </div>
+  </section>
+
+  <!-- 🌼 Modals -->
+  <div class="modal" id="leafModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('leafModal')">&times;</span>
+      <h2>Leaf Whisper</h2>
+      <p>Feel the rhythm of nature as leaves sway with your breath.</p>
+    </div>
+  </div>
+
+  <div class="modal" id="pondModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('pondModal')">&times;</span>
+      <h2>Ripples of Calm</h2>
+      <p>Every motion is like a ripple, spreading tranquility across the mind.</p>
+    </div>
+  </div>
+
+  <div class="modal" id="sunModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('sunModal')">&times;</span>
+      <h2>Sunlight Bloom</h2>
+      <p>Let the gentle warmth of sunlight illuminate your soul.</p>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

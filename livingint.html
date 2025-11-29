@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nature & Serenity — The Living Interface</title>
+  <meta name="description" content="The Living Interface — a nature-inspired portfolio and micro-site showcasing projects, UI experiments and serenity-driven design." />
+  <link rel="alternate" href="index.html" type="application/atom+xml" title="Atom">
+  <style>
+    /* ========== CSS RESET ========== */
+    *,*::before,*::after{box-sizing:border-box}html,body{height:100%}body{margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;line-height:1.45;color:#05331a;background:linear-gradient(180deg,#e9f7ef 0%, #f7fffb 100%)}
+
+    :root{
+      --accent:#0b6b3a;
+      --muted:#6b7b6b;
+      --card:#ffffff;
+      --glass: rgba(255,255,255,0.6);
+      --shadow: 0 8px 24px rgba(4,27,12,0.08);
+    }
+
+    /* ========== LAYOUT ========== */
+    .container{max-width:1100px;margin:0 auto;padding:28px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:10px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),#2a8a5a);color:white;font-weight:700;box-shadow:var(--shadow)}
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{color:var(--accent);text-decoration:none;font-weight:600}
+    .cta{background:var(--accent);color:white;padding:10px 14px;border-radius:10px;text-decoration:none}
+
+    /* ========== HERO ========== */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;padding:28px 0}
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.55));backdrop-filter:blur(6px);border-radius:18px;padding:28px;box-shadow:var(--shadow)}
+    h1{font-size:32px;margin:0 0 10px;color:#023212}
+    p.lead{color:var(--muted);margin:0 0 18px}
+    .actions{display:flex;gap:12px}
+    .pill{padding:8px 12px;border-radius:999px;border:1px solid rgba(8,40,18,0.06);background:transparent}
+
+    /* little living UI element */
+    .living{display:flex;gap:10px;align-items:center}
+    .leaf{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,#b9f2d1,#73d394);display:grid;place-items:center;box-shadow:0 10px 30px rgba(35,115,60,0.12)}
+
+    /* ========== PORTFOLIO ========== */
+    .portfolio{margin-top:22px}
+    .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+    .filters button{background:transparent;border:1px solid rgba(7,50,23,0.08);padding:8px 12px;border-radius:999px;cursor:pointer}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(220px,1fr));gap:16px}
+    .card{background:var(--card);border-radius:14px;padding:12px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+    .card img{width:100%;height:140px;object-fit:cover;border-radius:10px}
+    .card h3{font-size:16px;margin:10px 0 6px}
+    .card p{margin:0;color:var(--muted);font-size:13px}
+    .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .tag{font-size:12px;padding:6px 8px;border-radius:8px;background:rgba(8,40,18,0.04)}
+
+    /* ========== ABOUT & CONTACT ========== */
+    .split{display:grid;grid-template-columns:1fr 320px;gap:20px;margin-top:26px}
+    .bio{background:var(--glass);padding:18px;border-radius:12px}
+    .contact{background:var(--card);padding:18px;border-radius:12px;box-shadow:var(--shadow)}
+    .input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(6,40,20,0.06);margin-top:8px}
+    textarea{min-height:100px}
+    .btn{display:inline-block;background:var(--accent);color:white;padding:10px 14px;border-radius:10px;text-decoration:none;margin-top:8px}
+
+    /* ========== FOOTER ========== */
+    footer{margin-top:40px;padding:20px 0;color:var(--muted);font-size:14px;text-align:center}
+
+    /* RESPONSIVE */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr;}
+      .split{grid-template-columns:1fr}
+      nav{display:none}
+    }
+
+    /* tiny UI interaction */
+    .fade-in{animation:fadeUp .7s cubic-bezier(.2,.9,.3,1) both}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+    /* lightbox */
+    .lightbox{position:fixed;inset:0;background:rgba(2,10,5,0.6);display:grid;place-items:center;z-index:60;opacity:0;pointer-events:none;transition:all .22s}
+    .lightbox.open{opacity:1;pointer-events:auto}
+    .lightbox .panel{background:white;border-radius:12px;overflow:hidden;max-width:900px;width:92%;box-shadow:0 30px 60px rgba(2,10,5,0.5)}
+    .lightbox img{width:100%;height:420px;object-fit:cover}
+
+  </style>
+</head>
+<body>
+  <!-- 🌊 Animated River Background -->
+<div class="river-bg">
+  <div class="wave wave1"></div>
+  <div class="wave wave2"></div>
+  <div class="wave wave3"></div>
+</div>
+
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">LI</div>
+        <div>
+          <div style="font-weight:700">The Living Interface</div>
+          <div style="font-size:12px;color:var(--muted)">nature · calm · interfaces</div>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html">Projects</a>
+        <a href="livingint.html">About</a>
+        <a href="carosil.html" class="cta">Contact</a>
+      </nav>
+      <div class="living fade-in">
+        <div style="text-align:right">
+          <div style="font-size:12px;color:var(--muted)">Live / adaptive</div>
+          <div style="font-weight:700">Serenity v2</div>
+        </div>
+        <div class="leaf" aria-hidden>
+          <!-- simple SVG leaf -->
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 21s6-6 9-9 8-6 11-7c0 0-3 7-9 11S3 21 3 21z" fill="white" opacity="0.12" />
+            <path d="M5 19c3-3 6-6 11-9 3-1.6 6-4.5 6-4.5s-3 8-9 12-8 1.5-8 1.5z" stroke="white" stroke-opacity="0.6" stroke-width="0.6"/>
+          </svg>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-card fade-in">
+          <h1>The Living Interface — Nature & Serenity</h1>
+          <p class="lead">Nature: Calmness, life, and renewal.
+
+Serenity: Peace, focus, and mental clarity.
+
+Living Interface: An experience that moves and responds like a natural ecosystem, not just a static design.</p>
+          <div class="actions">
+            <a class="cta" href="#projects">View Projects</a>
+            <a class="pill" href="#about">Learn more</a>
+          </div>
+
+          
+        </div>
+
+        <aside class="hero-card fade-in">
+          <!-- decorative nature image from unsplash with alt text -->
+          <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=60" alt="forest canopy" style="width:100%;height:260px;object-fit:cover;border-radius:10px;margin-bottom:12px"/>
+          <div style="font-weight:700">Living Surface</div>
+          <div style="font-size:13px;color:var(--muted)">Step into the rhythm of nature — where every ripple, leaf, and ray of sunlight comes alive.
+Here, the air flows with calm, and every motion whispers serenity.
+As the river glides and the leaves fall, the interface breathes with you — soft, mindful, and alive.
+In this world, technology doesn’t distract; it connects — echoing the harmony of nature in every gentle interaction.</div>
+        </aside>
+      </section>
+
+      <section id="projects" class="portfolio">
+        <div style="display:flex;justify-content:space-between;align-items:end">
+          <div>
+            <h2 style="margin:0">Seasons</h2>
+            <div style="color:var(--muted);font-size:13px">enjoy the beauty of nature in different seasons</div>
+          </div>
+          <div style="font-size:12px;color:var(--muted)"></div>
+        </div>
+
+        <div class="filters" style="margin-top:12px">
+          <button data-filter="*">All</button>
+          <button data-filter="ui">Winter</button>
+          <button data-filter="visual">Summer</button>
+          <button data-filter="code">Spring</button>
+        </div>
+
+        <div class="grid" id="grid">
+          <!-- project 1 -->
+          <article class="card" data-tags="ui visual">
+            <img src="https://plus.unsplash.com/premium_photo-1661935080835-fa474847470b?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2UlMjB0byUyMHZpc2l0JTIwaW4lMjBzdW1tZXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600" alt="mossy river"/>
+            <h3>Serene Dashboard</h3>
+            <p>Minimal metrics with organic shapes and gentle motion.</p>
+            <div class="tags"><span class="tag">visit</span><span class="tag">Try it out</span></div>
+          </article>
+
+          <!-- project 2 -->
+          <article class="card" data-tags="visual">
+            <img src="https://images.unsplash.com/photo-1563297814-f1545e82dc5e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGxhY2UlMjB0byUyMHZpc2l0JTIwaW4lMjBzdW1tZXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600" alt="sun through trees"/>
+            <h3>Ambient Wallpaper</h3>
+            <p>Generative gradients that respond to local time and cursor position.</p>
+            <div class="tags"><span class="tag">Visit</span><span class="tag">Try it out</span></div>
+          </article>
+
+          <!-- project 3 -->
+          <article class="card" data-tags="code ui">
+            <img src="https://images.unsplash.com/photo-1526344966-89049886b28d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2hlcnJ5JTIwYmxvc3NvbXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600" alt="stone path"/>
+            <h3>Living Form</h3>
+            <p>Accessible form interactions with soft validations and micro-animations.</p>
+            <div class="tags"><span class="tag">Visit</span><span class="tag">Try it out</span></div>
+          </article>
+
+          <!-- project 4 -->
+          <article class="card" data-tags="ui code">
+            <img src="https://plus.unsplash.com/premium_photo-1661954483883-edd65eac3577?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2UlMjB0byUyMHZpc2l0JTIwaW4lMjBzcHJpbmd8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600" alt="mountain range"/>
+            <h3>Bio-Inputs</h3>
+            <p>A tiny JS lib that eases biometric-like input behaviours.</p>
+            <div class="tags"><span class="tag">Visit</span><span class="tag">Try it out</span></div>
+          </article>
+
+          <!-- project 5 -->
+          <article class="card" data-tags="visual">
+            <img src="https://plus.unsplash.com/premium_photo-1710030733154-16b30a0f944f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGxhY2UlMjB0byUyMHZpc2l0JTIwaW4lMjBzcHJpbmd8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600" alt="river"/>
+            <h3>Calm Transitions</h3>
+            <p>Motion studies focused on relaxation through timing and easing.</p>
+            <div class="tags"><span class="tag">Visit</span><span class="tag">Try it out</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="about" class="split">
+        <div class="bio">
+          <h3>About — The Adventure in nature</h3>
+          <p style="color:var(--muted)">Adventure in nature is an invitation to reconnect — with the earth, with life, and with yourself. From misty mountain trails to endless ocean horizons, every journey teaches us humility, courage, and wonder. In every season, the world reveals a different shade of beauty — waiting for those who dare to explore.</p>
+
+          <ul style="margin-top:12px;color:var(--muted)">
+            <li>“Feel the thrill of nature — where adventure meets serenity.”</li>
+            <li>“Wander into the wild. Return with stories.”</li>
+            <li>“The best adventures begin where the road ends and nature begins.”</li>
+          </ul>
+
+          <div style="margin-top:12px;display:flex;gap:8px">
+            <a class="pill" href="#projects">See work</a>
+            <a class="pill" href="#contact">Explore/ Feel about nature</a>
+          </div>
+        </div>
+
+        <aside id="contact" class="contact">
+          <h3>Contact</h3>
+          <form id="contactForm" onsubmit="return false">
+            <label for="name">Name</label>
+            <input id="name" class="input" placeholder="Your name" />
+            <label for="email">Email</label>
+            <input id="email" class="input" placeholder="you@example.com" />
+            <label for="message">Message</label>
+            <textarea id="message" placeholder="Tell me about your project"></textarea>
+            <a class="btn" href="#" id="sendBtn">Send Message</a>
+          </form>
+        </aside>
+      </section>
+
+      <footer>
+        © <span id="year"></span> The Living Interface — made with care. 
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- lightbox for project details -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-hidden="true">
+    <div class="panel" id="lbPanel">
+      <img id="lbImg" src="" alt="project image" />
+      <div style="padding:12px">
+        <h3 id="lbTitle">Project</h3>
+        <p id="lbDesc">Details</p>
+        <div style="display:flex;gap:8px"><a class="pill" id="lbLink" href="#">Open</a><a class="pill" href="#" onclick="closeLB();return false;">Close</a></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // small JS interactions: filters, lightbox, contact "send" micro-feedback
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // filtering
+    const grid = document.getElementById('grid');
+    const items = Array.from(grid.querySelectorAll('.card'));
+    document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{
+      const f = b.getAttribute('data-filter');
+      items.forEach(it=>{
+        const tags = it.getAttribute('data-tags') || '';
+        if(f === '*' || tags.includes(f)){
+          it.style.display = '';
+          it.classList.add('fade-in');
+        } else it.style.display = 'none';
+      })
+    }));
+
+    // lightbox
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbTitle = document.getElementById('lbTitle');
+    const lbDesc = document.getElementById('lbDesc');
+    const lbLink = document.getElementById('lbLink');
+
+    items.forEach(card=>{
+      card.addEventListener('click',()=>{
+        const img = card.querySelector('img').src;
+        const title = card.querySelector('h3').textContent;
+        const desc = card.querySelector('p').textContent;
+        lbImg.src = img;
+        lbTitle.textContent = title;
+        lbDesc.textContent = desc;
+        lbLink.href = '#';
+        openLB();
+      })
+    })
+
+    function openLB(){ lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); }
+    function closeLB(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); }
+
+    lb.addEventListener('click', (e)=>{ if(e.target === lb) closeLB(); });
+
+    // contact send micro-feedback
+    document.getElementById('sendBtn').addEventListener('click', (e)=>{
+      e.preventDefault();
+      const name = document.getElementById('name').value || 'Friend';
+      const btn = e.currentTarget;
+      btn.textContent = 'Sending...';
+      setTimeout(()=>{ btn.textContent = 'Sent ✓'; btn.style.pointerEvents='none'; }, 900);
+    });
+
+    // small ambient parallax for hero image
+    const heroImg = document.querySelector('.hero aside img');
+    document.addEventListener('mousemove', (e)=>{
+      const x = (e.clientX / window.innerWidth - 0.5) * 8;
+      const y = (e.clientY / window.innerHeight - 0.5) * 6;
+      if(heroImg) heroImg.style.transform = `translate(${x}px,${y}px) scale(1.01)`;
+    });
+
+    // accessible keyboard: Esc closes lightbox
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeLB(); });
+  </script>
+</body>
+</html>
